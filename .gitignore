@@ -1,0 +1,111 @@
+# ===================================
+# GITIGNORE PARA PROYECTO PREMIER LEAGUE
+# ===================================
+
+# ===================================
+# PYTHON
+# ===================================
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# ===================================
+# NODE.JS / FRONTEND
+# ===================================
+# Node modules (MUY PESADO - NUNCA SUBIR)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs del frontend
+frontend/dist/
+frontend/build/
+frontend/.vite/
+
+# ===================================
+# DATOS Y MODELOS (OPCIONALES)
+# ===================================
+# Modelos entrenados (pueden ser pesados)
+# NOTA: Si quieres que otros puedan usar el proyecto sin entrenar,
+# comenta estas líneas para incluir los modelos en el repo
+models/*.pkl
+
+# Datos CSV generados (se pueden regenerar)
+# NOTA: Puedes comentar estas líneas si quieres incluir los datos
+data/*.csv
+outputs/*.csv
+
+# Imágenes generadas (se pueden regenerar)
+# NOTA: Puedes comentar estas líneas si quieres incluir las visualizaciones
+outputs/*.png
+outputs/*.jpg
+outputs/*.jpeg
+
+# ===================================
+# SISTEMA OPERATIVO
+# ===================================
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# ===================================
+# OTROS
+# ===================================
+# Logs
+*.log
+logs/
+
+# Archivos temporales
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Archivos de base de datos locales
+*.db
+*.sqlite
+*.sqlite3
+
+# Variables de entorno (pueden contener API keys sensibles)
+.env
+.env.local
+.env.production
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover

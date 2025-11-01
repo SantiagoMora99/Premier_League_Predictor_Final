@@ -1,0 +1,81 @@
+# ============================================================
+# CELDA ADICIONAL PARA AGREGAR AL NOTEBOOK
+# Copia y pega esto como nueva celda al final del notebook
+# ============================================================
+
+# 12. INTERFAZ INTERACTIVA CON GRADIO (OPCIONAL)
+print("🌐 Instalando Gradio...")
+!pip install -q gradio
+
+import gradio as gr
+
+print("✅ Gradio instalado\n")
+
+# Función para la interfaz
+def gradio_predict(team_a_name, team_b_name):
+    try:
+        team_a = df_features[df_features['name'] == team_a_name]
+        team_b = df_features[df_features['name'] == team_b_name]
+
+        if team_a.empty or team_b.empty:
+            return "❌ Equipo no encontrado"
+
+        if team_a_name == team_b_name:
+            return "❌ Debes seleccionar dos equipos diferentes"
+
+        team_a_id = team_a.iloc[0]['id']
+        team_b_id = team_b.iloc[0]['id']
+
+        result = predict_match(team_a_id, team_b_id)
+
+        output = f"""
+## 🏆 PREDICCIÓN DE PARTIDO
+
+### {result['teamA']} 🆚 {result['teamB']}
+
+---
+
+**🎯 Ganador Predicho:** {result['winner']}
+
+**📊 Confianza:** {result['confidence']}%
+
+### Probabilidades:
+- **{result['teamA']}:** {result['probA']}%
+- **{result['teamB']}:** {result['probB']}%
+
+---
+
+🤖 **Modelo:** Random Forest (Accuracy: {accuracy:.2%})
+
+⚠️ *Predicción educativa basada en estadísticas actuales*
+        """
+
+        return output
+
+    except Exception as e:
+        return f"❌ Error: {str(e)}"
+
+# Lista de equipos
+team_names = sorted(df_features['name'].tolist())
+
+# Crear interfaz
+print("🚀 Lanzando interfaz Gradio...\n")
+
+iface = gr.Interface(
+    fn=gradio_predict,
+    inputs=[
+        gr.Dropdown(choices=team_names, label="🔵 Equipo A"),
+        gr.Dropdown(choices=team_names, label="🔴 Equipo B")
+    ],
+    outputs=gr.Markdown(label="Resultado de la Predicción"),
+    title="⚽ Premier League Match Predictor",
+    description="Selecciona dos equipos para predecir el resultado del partido usando Machine Learning.",
+    theme="soft",
+    examples=[
+        [team_names[0], team_names[1]],
+        [team_names[2], team_names[3]],
+    ] if len(team_names) >= 4 else None
+)
+
+# Lanzar (share=True para URL pública temporal)
+iface.launch(share=True, debug=False)
